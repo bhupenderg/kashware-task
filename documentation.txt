@@ -55,7 +55,7 @@ Thenafter click "send" and this will return a new updated document.
 You can also check that updated document with localhost:8000/getPosts also.
 
 c. Protected route 3 to access : localhost:8000/imageProcessing .This is a get request in which already a url address has been provided of an image from google. The image is resized as a thumbnail of size 50x50.
-There is a folder with name image. Downloaded image is stored there. Thenafter, in the main folder. Processed image will be automatically download and store in parent folder.
+There is a folder with named "images". In case there is no folder with the name, "images", you are required to create one folder and name it "images' otherwise this route will not perform any function.Downloaded image is stored there. Thenafter, in the main folder. Processed image will be automatically download and store in parent folder.
 
 
 
