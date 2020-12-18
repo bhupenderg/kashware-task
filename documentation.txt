@@ -1,0 +1,63 @@
+Software Requirements:
+
+vs code
+postman
+
+
+Step-wise guide to run the APIs
+
+Step 1 : Download the code from github (Link here, no pass word required)
+and open the folder with VS Code.
+
+Step 2 : VS Code terminals are powershell/ Bash, and run command "npm install" to install all the dependencies in node_module folder.
+
+Step 3 : Run command, "npm start" to start node Js server
+
+Step 4 : Our server will run on port 8000, which is public and to access please copy paste the below url in the postman and press enter.
+
+public:   localhost:8000 . It is a get request and will return Hello World! as the output of the program. 
+
+Link : localhost:8000/users/login. This is also a public route and post request. Credentials required to login are:
+email: steveaustin@gmail.com
+password: Password@123
+
+Step 5 : After selecting POST in postman, you are require to select, "raw" under "body" tab in postman and there you have to
+provide, "email" and "password" in "json" format. As given below :
+
+{
+    "email": "steveaustin@gmail.com",
+    "password": "Password@123"
+}
+
+Authentication test :
+For any protected route under Authorizaton tab, select "Bearer Token" under "TYPE" and then on the right hand side need to provide value of jwt for Token. 
+We can get the Token value when we login or we can use (eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRiNjFjZDRlNzM5MDBkN2M0OGI3YTciLCJpYXQiOjE2MDgyMzYyMTZ9.2ta_vMZgZFFA3feIMYMkd0VFyE68tGcdnqtabgjH8OY).
+If will not provide above details, it will assume the user as not logged in and will ask to login before proceed. 
+
+Step 6 :  After entering the email and password in JSON format, there are three protected routes. To access these routes you have to follow the mentioned steps : 
+
+We need to login first to access these routes.
+a. Protected route 1 address :localhost:8000/getPosts. This is a get request to get dummy posts in results. In this task, we have 3 dummy posts in our database.
+
+Each post consist of 1 post id-field 1 title-field, 1 content-field and 1 author-field.
+
+
+b. Protected route 2 to access : localhost:8000/update-post/5fda86fdcb9a803c3485e036 . We can update the posts here. This is a patch request.
+After selecting PATCH in postman, you are require to select, "raw" under "body" tab in postman and there you have to
+provide,input in json format, for the field we need to update. As given below you can change any field. For example, :
+
+{
+    "author": "The Rock"
+}
+
+Thenafter click "send" and this will return a new updated document.
+
+You can also check that updated document with localhost:8000/getPosts also.
+
+c. Protected route 3 to access : localhost:8000/imageProcessing .This is a get request in which already a url address has been provided of an image from google. The image is resized as a thumbnail of size 50x50.
+There is a folder with name image. Downloaded image is stored there. Thenafter, in the main folder. Processed image will be automatically download and store in parent folder.
+
+
+
+NOTE : I have just ran a single dummy test of MOCHA which will run with the command, "npm test".
+I can perform test on JEST instead of MOCHA. But, will run any new technologies if required.
