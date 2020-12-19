@@ -2,7 +2,9 @@ const download = require('image-downloader')
 
 const path = require('path')
 
-const resizer = require('node-image-resizer')
+// const resizer = require('node-image-resizer')
+
+const sharp = require('sharp');
 
 const fs = require('fs');
 
@@ -26,54 +28,36 @@ const options = {
 
 // check if there are any files in folder
 
-fs.readdir(file, function(err, files) {
+await fs.readdir(file, function(err, files) {
     if (err) {
        console.log("Error")
+       res.send(err)
     } else {
        if (!files.length) {
            console.log("Empty")
+           res.send("No file Downloaded!")
        }
 
        else{
-           files.forEach((file) => {
+           files.forEach(async (file) => {
 
-            const setup = { 
-                all: {
-                  path: path.join(__dirname, '../thumbnails'),
-                  quality: 80
-                  
-                },
-                versions: [{
-                  quality: 100,
-                  prefix: 'small_',
-                  width: 50,
-                  height: 50
-                }]
-              };
+            await sharp(path.join(__dirname, '../images', file))
+                  .resize(50, 50)
+                  .toFormat('jpeg')
+                  .toFile(path.join(__dirname, '../thumbnails', 'newone.png'))
 
+            
+                res.status(200).json({
+                  status: "Success",
+                  message: "Image processed successfully."
+                })
+    
+
+                })
                
-              // create thumbnails
+              
 
-
-              (async () => {
-                  try{
-                    await resizer(path.join(__dirname, '../images', file), setup);
-                    res.status(201).json({
-                        status: "Success",
-                        Message: "Image processed successfully."
-                    })
-                    console.log("normal:" + path.join(__dirname, '../images', file))
-                    console.log("thumb: " + path.join(__dirname, '../thumbnails')) 
-                    console.log("origin: " + path.join(__dirname, '../thumbnails' ))
-                  }
-
-                  catch(err) {
-                      console.log("There is still some error: " + err)
-                  }
-                
-              })();
-
-            })
+            
        }
     }
     
