@@ -44,7 +44,16 @@ await fs.readdir(file, function(err, files) {
             await sharp(path.join(__dirname, '../images', file))
                   .resize(50, 50)
                   .toFormat('jpeg')
-                  .toFile(path.join(__dirname, '../thumbnails', 'newone.png'))
+                  .toFile(path.join(__dirname, '../thumbnails', file + '.png'))
+
+                  await fs.unlink(path.join(__dirname, '../images', file), (err) => {
+                    if(err) {
+                      console.log(err)
+                    }
+                      else{
+                        console.log("Deleted from E")
+                    }
+                  })
 
             
                 res.status(200).json({
