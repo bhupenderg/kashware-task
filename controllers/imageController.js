@@ -41,6 +41,8 @@ await fs.readdir(file, function(err, files) {
        else{
            files.forEach(async (file) => {
 
+            // resize image
+
             await sharp(path.join(__dirname, '../images', file))
                   .resize(50, 50)
                   .toFormat('jpeg')
